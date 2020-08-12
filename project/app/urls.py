@@ -11,6 +11,7 @@ urlpatterns = [
     path('contact', views.contact, name='contact'),
     path('handleSignup', views.handleSignup, name='handleSignup'),
     path('handleLogin', views.handleLogin, name='handleLogin'),
+    path('handlelogout', views.handlelogout, name='handlelogout'),
     
     
 ]
