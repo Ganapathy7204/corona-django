@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -115,9 +116,11 @@ USE_L10N = True
 USE_TZ = True
 
 
-EMAIL_HOST='smpt.gmail.com'
-EMAIL_HOST_USER  = 'your email address'
-EMAIL_HOST_PASSWORD = 'your email password'
+
+
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_HOST_USER  = 'email id'
+EMAIL_HOST_PASSWORD = 'email password'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -137,3 +140,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
+
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger'
+}

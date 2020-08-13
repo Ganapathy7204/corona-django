@@ -9,13 +9,15 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 <style>
+
+
+
 .brandLogo {
   height:50px;
   filter:invert(100%);  
 }
-.bg-dark{
-    background-color: black;
-}
+
+
 .form-control {
     display: block;
     width: 100%;
@@ -69,13 +71,14 @@
       </li> 
  </ul>
     
-    <form class="form-inline my-2 my-lg-0">
+    <form class="ml-auto form-inline">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Search</button>
     </form>
+    
 {% if user.is_authenticated %}
 
-
+<ul class="navbar-nav mr-1">
          <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Welcome {{request.user}}
@@ -85,6 +88,7 @@
         
         </div>
       </li>
+      </ul>
 {% else %}
 
     <button type="button" class="btn btn-danger mx-1" data-toggle="modal" data-target="#loginModel"> Login</button>
@@ -96,6 +100,15 @@
 
   </div>
 </nav>
+
+{% for message in messages  %}
+<div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+  <strong></strong>{{message}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endfor %}
 
 <!-- SIGNUP-Modal -->
 <div class="modal fade" id="signupModel" tabindex="-1" aria-labelledby="signupModelLabel" aria-hidden="true">
