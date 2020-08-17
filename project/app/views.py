@@ -1,7 +1,7 @@
 from django.shortcuts import render,HttpResponse,redirect
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
-from .models import Contact
+from .models import Contact,Friendspost
 from django.conf import settings
 from django.core import mail
 from django.core.mail.message import EmailMessage
@@ -79,12 +79,31 @@ def handlelogout(request):
     logout(request)
     return render(request,'home/index.html')
 
+def addpost(request):
+    if request.method == "POST":
+
+        title=request.POST.get('title')
+        desc=request.POST.get('desc')
+        name=request.POST.get('name')
+        file=request.FILES['file']
+        query=Friendspost(title=title,content=desc,img=file,author=name)
+        query.save()
+        messages.success(request,"Your Post has been Saved")
+        return redirect('/friendsPost')
+
+    return render(request,'home/addpost.html')
+
 
 def blogPost(request):
     return render(request,'home/blogPost.html')
 
 def friendsPost(request):
-    return render(request,'home/friendsPost.html')
+    if not request.user.is_authenticated:
+        messages.warning(request,"Please Login and Try Again")
+        return redirect('/')
+    posts=Friendspost.objects.all()
+    context={'posts':posts}
+    return render(request,'home/friendsPost.html',context)
 
 def about(request):
     return render(request,'home/about.html')

@@ -3,5 +3,50 @@
 Friends
 {% endblock title %}
 {% block body %}
-<h1>this is my friends page</h1>
+<div class="container mt-3">
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">Welcome {{request.user}}</li>
+
+    <!-- Example single danger button -->
+<div class="btn-group ml-3">
+  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+   Add Posts
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="/">Home</a>
+    <a class="dropdown-item" href="/addpost">Add Posts</a>
+ 
+  </div>
+</div>
+  </ol>
+</nav>
+
+{% for  post in posts reversed %}
+
+      <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+
+          <strong class="d-inline-block mb-2 text-primary"> {{post.title}}</strong>
+          
+            <a href="{{post.img.url}}"><img src="{{post.img.url}}"   class="img-fluid" height="500px" width="500px" alt=""></a>
+           <br>
+          <h6 class="d-inline-block mb-2 text-success">Posted By : {{post.author}}</h6>
+          <div class="mb-1 text-muted"><b>{{post.timeStamp}}</b></div>
+          <p class="card-text mb-auto">{{post.content|truncatechars:300|safe}}</p>
+          <div class="my-2">
+          
+          </div>
+        </div>
+        <div class="col-auto d-none d-lg-block">
+      </div>
+    </div>
+    {% endfor %}
+    </div>
+</div>
+
+
+
+
+</div>
 {% endblock body %}

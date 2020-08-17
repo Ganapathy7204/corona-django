@@ -12,6 +12,7 @@ urlpatterns = [
     path('handleSignup', views.handleSignup, name='handleSignup'),
     path('handleLogin', views.handleLogin, name='handleLogin'),
     path('handlelogout', views.handlelogout, name='handlelogout'),
+    path('addpost', views.addpost, name='addpost'),
     
     
 ]
