@@ -19,6 +19,17 @@ class Friendspost(models.Model):
 
     def __str__(self):
         return self.author
+    
+class Adminspost(models.Model):
+    title=models.CharField(max_length=50)
+    content=models.TextField()
+    author=models.CharField(max_length=50)
+    img=models.ImageField(upload_to='friends',blank=True,null=True)
+    timeStamp=models.DateTimeField(auto_now_add=True,blank=True)
+    
+
+    def __str__(self):
+        return self.author
 
     # pip install Pillow    
     

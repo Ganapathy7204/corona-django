@@ -1,7 +1,7 @@
 from django.shortcuts import render,HttpResponse,redirect
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
-from .models import Contact,Friendspost
+from .models import Contact,Friendspost,Adminspost
 from django.conf import settings
 from django.core import mail
 from django.core.mail.message import EmailMessage
@@ -95,7 +95,14 @@ def addpost(request):
 
 
 def blogPost(request):
-    return render(request,'home/blogPost.html')
+    if not request.user.is_authenticated:
+
+        messages.warning(request,"Please Login and Try Again")
+        return redirect('/')
+    posts=Adminspost.objects.all()
+    context={'posts':posts}
+
+    return render(request,'home/blogPost.html',context)
 
 def friendsPost(request):
     if not request.user.is_authenticated:
@@ -107,6 +114,22 @@ def friendsPost(request):
 
 def about(request):
     return render(request,'home/about.html')
+
+def search(request):
+    query=request.GET['search']
+    if len(query)>78:
+        allPosts=Friendspost.objects.none()
+    else:
+        allPostsTitle=Friendspost.objects.filter(title__icontains=query)
+        allPostsContent=Friendspost.objects.filter(content__icontains=query)
+        allPosts=allPostsTitle.union(allPostsContent)
+
+    if allPosts.count()== 0:
+        messages.warning(request,"No Search Results")
+
+    params={'allPosts':allPosts,'query':query}   
+     
+    return render(request,'home/search.html',params)
 
 def contact(request):
     if request.method == "POST":
